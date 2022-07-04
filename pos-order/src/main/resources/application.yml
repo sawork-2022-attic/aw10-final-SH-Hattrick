@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: pos-order
+  cloud:
+    # function:
+    #   definition: supplyLoan
+    stream:
+      function:
+        bindings:
+          summitOrder-out-0: order
+      bindings:
+        order:
+          destination: output
+
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+eureka:
+  instance:
+    # enable to register multiple app instances with a random server port
+    instance-id: ${spring.application.name}:${random.uuid}
+
+---
+server:
+  port: 8085

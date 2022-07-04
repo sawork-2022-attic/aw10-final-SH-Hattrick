@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: pos-carts
+
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+eureka:
+  instance:
+    # enable to register multiple app instances with a random server port
+    instance-id: ${spring.application.name}:${random.uuid}
+
+---
+server:
+  port: 8084

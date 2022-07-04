@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: pos-products
+          uri: lb://pos-products
+          predicates:
+            - Path=/products/**
+          filters:
+        - id: pos-carts
+          uri: lb://pos-carts
+          predicates:
+            - Path=/cart/**
+          filters:
+        - id: pos-order
+          uri: lb://pos-order
+          predicates:
+            - Path=/order/**
+          filters:
+        - id: pos-delivery
+          uri: lb://pos-integration
+          predicates:
+            - Path=/delivery/**
+          filters:
+
+server:
+  port: 8080

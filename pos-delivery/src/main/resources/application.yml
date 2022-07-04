@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: pos-delivery
+  cloud:
+    function:
+      definition: checkDelivery
+    stream:
+      function:
+        bindings:
+          checkDelivery-in-0: summitOrder-out-0
+      rabbit:
+        bindings:
+          output:
+            consumer:
+              declare-exchange: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+eureka:
+  instance:
+    # enable to register multiple app instances with a random server port
+    instance-id: ${spring.application.name}:${random.uuid}
+
+---
+server:
+  port: 8090
